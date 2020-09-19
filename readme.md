@@ -1,6 +1,6 @@
 ## Horizontally scaleable Socket IO server with Flask and RabbitMQ
 
-###Implemented
+### Implemented
 * Flask server with Socket IO
 
 * Docker containers for the following:
@@ -8,7 +8,7 @@
     * HAProxy Loadbalancer for the api (running on http://localhost:8080)
     * 3 Flask instances (running on http://localhost:5000, http://localhost:5000, http://localhost:5000)
 Note: Flask also serves the same html file as nginx at http://localhost:[5000 | 5001 | 5002]/chat
-###Not Implemented
+### Not Implemented
 *RabbitMQ for inter api communication
 
 *Socket IO comms with multiple clients
