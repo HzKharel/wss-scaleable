@@ -34,7 +34,7 @@ Note: Flask also serves the same html file as nginx at http://localhost:[5000 | 
  Note: The haproxy load balancer works perfectly for rest calls 
  
  
- ##How to run
+ ### How to run
  
 * You need to have docker installed
 * If you want to test python code locally, activate the env thats located at (`./env/Scripts/activate`)
