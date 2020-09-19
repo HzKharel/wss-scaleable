@@ -11,7 +11,7 @@ cors = CORS(app, resources={
         "origins": "*"
     }
 })
-socket_io = SocketIO(app)
+socket_io = SocketIO(app, cors_allowed_origins='*')
 HOST = environ.get('NODE_HOST')
 PORT = environ.get('PORT')
 
@@ -43,4 +43,4 @@ def handle_message(message):
 
 if __name__ == '__main__':
     print(f"Starting Webserver on Port {PORT} with host Name {HOST}")
-    socket_io.run(app, host='0.0.0.0', debug=True)
+    socket_io.run(app, host='0.0.0.0', debug=True, log_output=True)
