@@ -39,3 +39,10 @@ Note: Flask also serves the same html file as nginx at http://localhost:[5000 | 
 * You need to have docker installed
 * If you want to test python code locally, activate the env thats located at (`./env/Scripts/activate`)
 * To run everything on Docker, Navigate to the root and execute `docker-compose up --build`
+
+
+### References:
+
+https://www.youtube.com/watch?v=gzIcGhJC8hA
+
+https://www.youtube.com/watch?v=9sAg7RooEDc

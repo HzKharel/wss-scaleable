@@ -2,33 +2,18 @@ from flask import Flask, render_template, send_file, request, make_response
 from flask_socketio import SocketIO, send
 from flask_cors import CORS, cross_origin
 from os import environ
+
 app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 CORS(app)
+cors = CORS(app, resources={
+    r"/*": {
+        "origins": "*"
+    }
+})
 socket_io = SocketIO(app)
 HOST = environ.get('NODE_HOST')
 PORT = environ.get('PORT')
-
-
-@app.after_request
-def after_request_func(response):
-    origin = request.headers.get('Origin')
-    if request.method == 'OPTIONS':
-        response = make_response()
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        response.headers.add('Access-Control-Allow-Headers', 'x-csrf-token')
-        response.headers.add('Access-Control-Allow-Methods',
-                             'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-        if origin:
-            response.headers.add('Access-Control-Allow-Origin', origin)
-    else:
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        if origin:
-            response.headers.add('Access-Control-Allow-Origin', origin)
-
-    return response
 
 
 @app.route('/')
@@ -42,7 +27,6 @@ def image():
 
 
 @app.route('/chat')
-@cross_origin(headers=['Content-Type', 'Authorization'])
 def chat():
     return render_template('index.html')
 
