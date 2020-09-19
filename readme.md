@@ -1,5 +1,8 @@
 ## Horizontally scaleable Socket IO server with Flask and RabbitMQ
 
+### UPDATE
+The socket issues have been fixed, check commit history.
+
 ### Implemented
 * Flask server with Socket IO
 
