@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  wb:
+    image: nginx
+    volumes:
+      - ./src/templates/:/usr/share/nginx/html
+    ports:
+      - 80:80
+
+  lb:
+    image: haproxy
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
+    ports:
+      - "8080:8080"
+  wsb1:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NODE_HOST="Flask Instance 1"
+      - PORT="5000"
+    ports:
+      - "5000:5000"
+  wsb2:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NODE_HOST="Flask Instance 2"
+      - PORT="5000"
+    ports:
+      - "5001:5000"
+  wsb3:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - NODE_HOST="Flask Instance 3"
+      - PORT="5000"
+    ports:
+      - "5002:5000"

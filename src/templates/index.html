@@ -1,0 +1,80 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha512-v8ng/uGxkge3d1IJuEo6dJP8JViyvms0cly9pnbfRxT6/31c3dRWxIiwGnMSWwZjHKOuY3EVmijs7k1jz/9bLA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
+    <script>
+        let socket;
+
+        function connect() {
+            let url = document.getElementById('url').value;
+            socket = io.connect(url);
+            let connectionReady = false;
+            socket.on('connect', res => {
+                connectionReady = true;
+                document.getElementById("host_details").innerHTML = res;
+            })
+
+            socket.on('message', res => {
+                let node = document.createElement('LI');
+                let msgNode = document.createTextNode(res);
+                node.appendChild(msgNode);
+                document.getElementById('messages').appendChild(node);
+            })
+        }
+
+        function sendMessage() {
+            let msg = document.getElementById('message_send').value;
+            socket.emit('message', msg)
+        }
+
+        function disconnect() {
+            socket.close()
+        }
+
+        function getApiInfo() {
+            axios.get('http://localhost:5000/').then(res => {
+                console.log(res);
+                document.getElementById('serv1').innerHTML = res.data.toString()
+            })
+            axios.get('http://localhost:5001/').then(res => {
+                console.log(res);
+                document.getElementById('serv2').innerHTML = res.data.toString()
+            })
+            axios.get('http://localhost:5002/').then(res => {
+                console.log(res);
+                document.getElementById('serv3').innerHTML = res.data.toString()
+            })
+            axios.get('http://localhost:8080/').then(res => {
+                console.log(res);
+                document.getElementById('servx').innerHTML = res.data.toString()
+            })
+        }
+    </script>
+</head>
+<body>
+<a href="http://localhost">Nginx hosted UI</a>
+<a href="http://localhost:5000/chat">Flask Instance 1 Hosted UI</a>
+<a href="http://localhost:5001/chat">Flask Instance 2 Hosted UI</a>
+<a href="http://localhost:5002/chat">Flask Instance 3 Hosted UI</a>
+<h1 id="host_details"></h1>
+<input id="url">
+<button onclick="connect()">connect</button>
+<button onclick="disconnect()">close</button>
+<br>
+<hr>
+<hr>
+<input id="message_send">
+<button onclick="sendMessage()">send</button>
+<button onclick="getApiInfo()">Fetch API State</button>
+<div id="messages">
+</div>
+<hr>
+<hr>
+<h2 id="serv1"></h2>
+<!--<img src="http://localhost:5000/image">-->
+<h2 id="serv2"></h2>
+<!--<img src="http://localhost:5001/image">-->
+<h2 id="serv3"></h2>
+<!--<img src="http://localhost:5002/image">-->
+<h2 id="servx"></h2>
+<!--<img src="http://localhost:8080/image">-->
+</body>
